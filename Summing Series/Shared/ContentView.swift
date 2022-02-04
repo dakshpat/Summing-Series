@@ -10,7 +10,9 @@ import SwiftUI
 struct ContentView: View {
     
     @State var numberOfIterative = 1
+    @State var numberOfIterative2 = 1
     @ObservedObject var series = Series()
+    @ObservedObject var series2 = Series2()
 
     var body: some View {
         VStack{
@@ -21,7 +23,7 @@ struct ContentView: View {
                     
             HStack{
                 Text("Enter N value here")
-                TextField("Enter N", value: $numberOfIterative, format: .number)
+                TextField("Enter N", value: $numberOfIterative2, format: .number)
                     .frame(width: 100)
             }
                     
@@ -37,17 +39,43 @@ struct ContentView: View {
                         
             }
                     
-
-                    
             Button("Calculate"){
                 Task.init{
-                  await series.initWithIteratives(numberOfIterative: numberOfIterative)
+                  await series.initWithIteratives(numberOfIterative: numberOfIterative2)
                 }
             }
                 .padding()
-                   
-            
         }
+        
+        VStack{
+            
+            Text("Consider a different finite sum")
+                .padding(.top)
+                .padding(.bottom, 0)
+                    
+            HStack{
+                Text("Enter N value here")
+                TextField("Enter N", value: $numberOfIterative, format: .number)
+                    .frame(width: 100)
+            }
+                    
+            Group {
+                Text("Sum using going up: \(series2.sumUpMethod, specifier: "%.12f")")
+                    .padding()
+
+                Text("Sum using going down: \(series2.sumDownMethod, specifier: "%.12f")")
+                    .padding()
+                        
+            }
+                    
+            Button("Calculate"){
+                Task.init{
+                  await series2.initWithIteratives(numberOfIterative: numberOfIterative)
+                }
+            }
+                .padding()
+        }
+        
     }
 }
 

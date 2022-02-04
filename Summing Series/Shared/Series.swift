@@ -8,7 +8,6 @@
 import Foundation
 import SwiftUI
 
-
 class Series: NSObject, ObservableObject {
 
     @Published var numberOfIterative = 0
@@ -88,6 +87,7 @@ class Series: NSObject, ObservableObject {
             return sum
         }
     
+// fucntions that update the class variables "sums" from different methods
     @MainActor func newMethod1Sum(method1Sum: Double){
         self.method1Sum = method1Sum
     }
